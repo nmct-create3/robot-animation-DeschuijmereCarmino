@@ -15,6 +15,9 @@
   --global-html-color: var(--global-color-front);
   --global-html-backgroundColor: var(--global-color-back);
   --global-selection-backgroundColor: var(--global-color-front);
+
+  /*Animation settings */
+
 }
 
 /*------------------------------------*\
@@ -43,6 +46,16 @@ html {
 }
 
 body {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 2rem;
+
+  background-color: var(--global-html-backgroundColor);
 }
 
 /*
@@ -133,15 +146,114 @@ body {
 */
 
 .c-robot {
+  max-width: 400px;
+  fill: var(--global-html-color);
+
+  --c-robot-aniamtion-duration : .75s;
+  --c-robot-aniamtion-timing-function: ease-in-out;
+  --c-robot-animation-iteration-count: infinite;
+  --c-robot-animation-direction: alternate;
 }
 
 .c-robot__shadow {
+  fill: var(--c-robot__shadow-fill, black);
+  opacity: .1;
+  transform-origin: 50% 100%;
 }
 
+.c-robot--css-anim #Robot{
+  animation: robotHover;
+  animation-duration: var(--c-robot-aniamtion-duration);
+  animation-timing-function: var(--c-robot-aniamtion-timing-function);
+  animation-iteration-count: var(--c-robot-animation-iteration-count);
+  animation-direction: var(--c-robot-animation-direction);
+}
+
+.c-robot--css-anim #Shadow{
+  animation: shadowPulse;
+  animation-duration: var(--c-robot-aniamtion-duration);
+  animation-timing-function: var(--c-robot-aniamtion-timing-function);
+  animation-iteration-count: var(--c-robot-animation-iteration-count);
+  animation-direction: var(--c-robot-animation-direction);
+}
+
+@keyframes shadowPulse {
+  100%
+  {
+    transform: scale(0.75);
+  }
+}
+
+@keyframes robotHover {
+  0%
+  {
+    transform: translateY(2%);
+  }
+  100%
+  {
+    transform: translateY(-2%);
+  }
+}
 
 /*
     Component: Controls
 */
+.c-controls{
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.c-controls__list{
+  display: flex;
+  gap: 10px;
+}
+
+.c-controls__button--pause{
+  color: var(--global-color-front);
+  background-color: #5AA8C3;
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.c-play-icon--pause{
+  display: none;
+}
+
+.pause .c-play-icon--pause{
+  display: block;
+}
+
+.c-controls__button--pause:active svg{
+  transform: scale(80%);
+  transition: ease-out;
+}
+
+.pause .c-play-icon--play{
+  display: none;
+}
+
+
+.c-controls__radio {
+  display: none;
+}
+
+.c-controls__radio + .c-controls__button:active {
+  transform: scale(80%);
+}
+
+.c-controls__radio + .c-controls__button{
+  color: var(--global-color-front);
+  padding:  10px 20px;
+}
+
+.c-controls__radio:checked + .c-controls__button{
+    background-color: #5AA8C3;
+    border-radius: 16px;
+}
 
 /*------------------------------------*\
 #UTILITIES
